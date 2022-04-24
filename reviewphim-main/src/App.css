@@ -1,0 +1,18 @@
+.top-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.top-item {
+    margin: 50px 5px 0 5px;
+    cursor: pointer;
+}
+
+.item-img {
+    max-height: 156px;
+}
+
+.item-slider {
+    max-height: 80vh !important;
+}
+

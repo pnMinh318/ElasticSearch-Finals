@@ -1,0 +1,13 @@
+{
+  "elastic": {
+    "cloudID": "DEPLOYMENT_NAME:CLOUD_ID_DETAILS",
+    "username": "elastic",
+    "password": "LONGPASSWORD"
+  },
+  "elastic-cloud": {
+    "cloudID": "DEPLOYMENT_NAME:ec2-52-5-49-102.compute-1.amazonaws.com",
+    "username": "phunghx",
+    "password": "phunghx",
+    "apiKey": "API_KEY_DETAILS"
+  }
+}
