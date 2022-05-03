@@ -16,3 +16,8 @@
     max-height: 80vh !important;
 }
 
+.group-select {
+  display: flex;
+  justify-content: space-around;
+
+}

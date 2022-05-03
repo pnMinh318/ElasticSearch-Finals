@@ -1,0 +1,51 @@
+{
+  "postId": "0123456789",
+  "title": "Review phim Avengers: Endgame – Đoạn kết bi tráng của MCU",
+  "image": "https://ghienreview.com/wp-content/uploads/2019/04/Ghien-review-AEG-14-1024x410.jpg",
+  "movie": {
+    "name": "Avengers: Endgame",
+    "duration": "182 phút",
+    "director": "Anthony Russo, Joe Russo",
+    "actor": "Robert Downey Jr., Chris Evans, Mark Ruffalo",
+    "country": "Mỹ",
+    "genre": "Hành động, phiêu lưu, viễn tưởng",
+    "premiere": "26/04/2019"
+  },
+  "content": [
+    {
+      "order": 0,
+      "type": "image",
+      "sectionContent": "https://ghienreview.com/wp-content/uploads/2019/04/Ghien-review-AEG-02.jpg"
+    },
+    {
+      "order": 1,
+      "type": "text",
+      "sectionContent": "Cuối cùng thì siêu siêu bom tấn lớn nhất năm đã đổ bộ các phòng vé toàn cầu rồi các bạn nè. Chắc hẳn đây là phim mà việc đọc review không còn ý nghĩa gì với người xem nữa vì dù chê hay khen, bạn cũng phải ra rạp thưởng thức cơn bão này mà thôi. Hiếm có phim nào mà dù khi xem xong đã 2h30 sáng nhưng rạp vẫn full như lúc 19-20h00 các ngày cuối tuần, đã đủ để chúng ta thấy được sức hút vô biên của bộ phim thứ 22 đến từ thương hiệu <em>Marvel</em> này. Nào, hãy cùng Ghiền review phim <em>Avengers: Endgame</em> nha. Yên tâm, mình sẽ không tiết lộ nội dung gì của phim đâu nè."
+    },
+    {
+      "order": 2,
+      "type": "text",
+      "sectionContent": "<strong><em>Cốt truyện: </em></strong>Nối tiếp phần trước – <em>Avengers Infinity War</em> khi mà <em>Thanos</em> búng tay, một nửa sinh vật trong vũ trụ biến mất, những siêu anh hùng còn sót lại phải sống trong một cuộc sống đầy tuyệt vọng và hối tiếc. Tên ác nhân <em>Thanos</em> vẫn còn ở một nơi nào đó ngoài vũ trụ, liệu rằng các <em>Avengers</em> còn đủ sức và động lực để lật ngược thế cờ cũng như end game thật sự không? Hãy ra rạp để khám phá những câu hỏi trên các bạn nhé."
+    },
+    {
+      "order": 3,
+      "type": "video",
+      "sectionContent": "https://www.youtube.com/embed/JsTxPRKo5Bw"
+    }
+  ],
+  "ratingScale": [
+    {
+      "name": "IMBD",
+      "rating": "9.2/10 (65.592 đánh giá)"
+    },
+    {
+      "name": "Metascores",
+      "rating": "78/100"
+    },
+    {
+      "name": "Rotten Tomatoes",
+      "rating": "96/100 (Cà chua tươi)"
+    }
+  ],
+  "author": "– BatmanHCM-"
+}

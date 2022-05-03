@@ -6,17 +6,16 @@ function FilmDetailPage(props) {
   const [filmList, setFilmList] = useState([]);
 
   const fetchData = async () => {
-    const { data } = await axios.get("/api/blogs/");
-    console.log(data);
-    setFilmList(data.documents);
-    return data;
+    // const { data } = await axios.get("/api/blogs/");
+    // console.log(data);
+    // setFilmList(data.documents);
   };
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
   useEffect(() => {
-    if (filmList.length > 0) console.log(filmList);
+    // if (filmList.length > 0) console.log(filmList);
   }, [filmList]);
 
   return (
