@@ -94,4 +94,26 @@ const deleteBlog = async (req, res) => {
     res.status(404).json({ message: "id delete not found" });
   }
 };
-export { getBlogs, postBlog, updateBlog, deleteBlog };
+const searchBlog = async (req, res) => {
+  const keyword = req.query.keyword;
+  console.log(keyword);
+  res.status(200).json({ keyword });
+  if (keyword) {
+    const result = client.search({
+      index: "post",
+      query: {
+        match_all: {},
+      },
+    });
+    result
+      .then((resolve) => { //not done
+        res.status(200).json({ resolve });
+      })
+      .catch((reject) => {
+        res.status(400).json({ error: reject });
+      });
+  } else {
+    res.status(404).json({ message: "id delete not found" });
+  }
+};
+export { getBlogs, postBlog, updateBlog, deleteBlog, searchBlog };
