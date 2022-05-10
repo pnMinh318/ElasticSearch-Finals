@@ -1,10 +1,10 @@
-// import { Router } from "express";
-// import {
-//   lockUser,
-//   login,
-//   register,
-//   updateUser,
-// } from "../controllers/userController";
+import { Router } from "express";
+import {
+  lockUser,
+  login,
+  register,
+  updateUser,
+} from "../controllers/userController.js";
 
 // const userRouter = Router();
 

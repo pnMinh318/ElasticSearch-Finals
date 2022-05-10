@@ -97,21 +97,36 @@ const deleteBlog = async (req, res) => {
 const searchBlog = async (req, res) => {
   const keyword = req.query.keyword;
   console.log(keyword);
-  res.status(200).json({ keyword });
+  // res.status(200).json({ keyword });
   if (keyword) {
-    const result = client.search({
+    const result = await client.search({
       index: "post",
       query: {
-        match_all: {},
+        combined_fields: {
+          query: keyword,
+          fields: [
+            "title^3",
+            "movie.name^5",
+            "movie.director^3",
+            "movie.actor^3",
+            "movie.country",
+            "movie.genre^2",
+            "content.sectionContent",
+          ],
+          operator: "or",
+        },
       },
     });
-    result
-      .then((resolve) => { //not done
-        res.status(200).json({ resolve });
-      })
-      .catch((reject) => {
-        res.status(400).json({ error: reject });
-      });
+    res.status(200).json({ documents: result });
+    console.log(result);
+    // result
+    //   .then((resolve) => {
+    //     //not done
+    //     res.status(200).json({ resolve });
+    //   })
+    //   .catch((reject) => {
+    //     res.status(400).json({ error: reject });
+    //   });
   } else {
     res.status(404).json({ message: "id delete not found" });
   }
