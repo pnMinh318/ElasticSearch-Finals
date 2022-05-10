@@ -4,7 +4,7 @@ import {
   login,
   register,
   updateUser,
-} from "../controllers/userController";
+} from "../controllers/userController.js";
 
 const userRouter = Router();
 

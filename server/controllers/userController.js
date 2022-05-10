@@ -1,4 +1,4 @@
-import { client } from "../elastic";
+import { client } from "../elastic.js";
 
 const login = async (req, res) => {
   const { username, password } = req.body;
