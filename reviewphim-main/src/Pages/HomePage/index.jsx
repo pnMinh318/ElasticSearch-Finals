@@ -13,14 +13,22 @@ function HomePage(props) {
         console.log(res.data.documents)
         setFilmList(res.data.documents)
     }
+
+    const getFilmListBySearch = async () => {
+        const res = await callApi(`blogs/search?keyword=${'joker'}`, 'GET')
+        console.log(res.data.documents)
+        setFilmList(res.data.documents)
+    }
+
     useEffect(() => {
-        getFilmList()
+        // getFilmList();
+        getFilmListBySearch();
     }, []);
     return (
         <Container>
             <Home />
             <Slider />
-            <TopContent filmList={filmList} />
+            {/* <TopContent filmList={filmList} /> */}
         </Container>
     );
 }
