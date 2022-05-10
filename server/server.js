@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import blogRouter from "./routes/blogRouter.js";
-import userRouter from "./routes/userRouter.js";
+// import userRouter from "./routes/userRouter.js";
 
 const app = express();
 
@@ -12,5 +12,5 @@ app.listen(5000, () => {
 });
 app.use(cors());
 app.use(express.json());
-app.use("/api/user", userRouter);
+// app.use("/api/user", userRouter);
 app.use("/api/blogs", blogRouter);

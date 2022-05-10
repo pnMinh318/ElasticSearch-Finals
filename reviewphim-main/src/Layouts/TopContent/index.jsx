@@ -1,23 +1,28 @@
 import React from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-function TopContent(props) {
+function TopContent({ filmList }) {
     return (
         <div className="top-content">
-            <Card className="top-item" style={{ width: '24%' }}>
-                <Card.Img
-                    variant="top"
-                    src="https://ghienreview.com/wp-content/uploads/2022/02/Ghienreview-Encanto-Vung-dat-than-ky-01-min-1536x1024.jpg"
-                    className="item-img"
-                />
-                <Card.Body>
-                    <Card.Title>Review phim Encanto – Vùng đất thần kỳ: Âm nhạc “gánh” nội dung</Card.Title>
-                    <Card.Text>
-                        Thời lượng: 102 phút Đạo diễn: Jared Bush; Byron Howard; Charise Castro Smith Diễn viên:...
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-            <Card className="top-item" style={{ width: '24%' }}>
+            {filmList.map((item, index) => (
+
+                <Card key={index} className="top-item" style={{ width: '24%' }}>
+                    <Card.Img
+                        variant="top"
+                        src={`${item._source.image}`}
+                        className="item-img"
+                    />
+                    <Card.Body>
+                        <Card.Title>{item._source.title}</Card.Title>
+                        <Card.Text>
+                            Thời lượng: {item._source.movie.duration}
+                            Đạo diễn: {item._source.movie.director}
+                            Diễn viên:{item._source.movie.actor}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            ))}
+            {/* <Card className="top-item" style={{ width: '24%' }}>
                 <Card.Img
                     variant="top"
                     src="https://ghienreview.com/wp-content/uploads/2022/01/Ghienreview-Sing-2-Dau-truong-am-nhac-2-01-min-1536x864.jpg"
@@ -107,7 +112,7 @@ function TopContent(props) {
                         Thời lượng: 5 tập; 50 phút/tập Sáng tạo: Álex Pina Diễn viên: Úrsula Corberó, Álvaro Morte, Itziar...
                     </Card.Text>
                 </Card.Body>
-            </Card>
+            </Card> */}
         </div>
     );
 }
