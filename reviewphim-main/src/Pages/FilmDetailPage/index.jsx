@@ -4,18 +4,22 @@ import Home from "../../Layouts/Home";
 import axios from "axios";
 import { Container } from "react-bootstrap";
 import callApi from "../../api/callApi";
+import { useParams } from "react-router-dom";
 function FilmDetailPage(props) {
 
   const [filmList, setFilmList] = useState([]);
+  const { id } = useParams();
+
   const getFilmList = async () => {
-    const res = await callApi('blogs', 'GET')
+    const res = await callApi(`blogs/${id}`, 'GET')
     console.log(res.data.documents)
     setFilmList(res.data.documents)
   }
+  console.log(id)
 
   useEffect(() => {
     getFilmList()
-  }, []);
+  }, [id]);
 
   return (
     <Container>

@@ -8,6 +8,8 @@ import callApi from '../../api/callApi';
 
 function HomePage(props) {
     const [filmList, setFilmList] = useState([]);
+    const [keyWord, setKeyWord] = useState('');
+
     const getFilmList = async () => {
         const res = await callApi('blogs', 'GET')
         console.log(res.data.documents)
@@ -15,19 +17,31 @@ function HomePage(props) {
     }
 
     const getFilmListBySearch = async () => {
-        const res = await callApi(`blogs/search?keyword=${'joker'}`, 'GET')
-        console.log(res.data.documents.hits.hits)
-        setFilmList(res.data.documents.hits.hits)
+        if (keyWord) {
+            const res = await callApi(`blogs/search?keyword=${keyWord}`, 'GET')
+            console.log(res.data.documents.hits.hits)
+            setFilmList(res.data.documents.hits.hits)
+        }
     }
 
     useEffect(() => {
-        // getFilmList();
-        getFilmListBySearch();
-    }, []);
+        if (!keyWord) {
+            getFilmList();
+        }
+        else {
+            getFilmListBySearch();
+
+        }
+    }, [keyWord]);
+
+    const handleSearch = (input) => {
+        setKeyWord(input)
+        // console.log(input)
+    }
     return (
         <Container>
-            <Home />
-            <Slider />
+            <Home handleSearch={handleSearch} />
+            {/* <Slider /> */}
             <TopContent filmList={filmList} />
         </Container>
     );

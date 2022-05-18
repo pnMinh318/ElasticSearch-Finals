@@ -61,12 +61,12 @@ function FilmDetail({ filmList }) {
                 </div>
                 <div className="film-desc">
                     <span style={{ fontSize: '20px', color: 'red' }}>Thang điểm đánh giá</span>
-                    {/* {ratingScale.map((item, index) => (
+                    {filmList._source.ratingScale.map((item, index) => (
                         <div className="film-time">
                             <span className='film-info'>{item.name}: </span>
                             {item.rating}
                         </div>
-                    ))} */}
+                    ))}
                 </div>
             </div>
             <NavContent />

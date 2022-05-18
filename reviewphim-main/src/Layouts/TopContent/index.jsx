@@ -1,17 +1,19 @@
 import React from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function TopContent({ filmList }) {
     return (
         <div className="top-content">
             {filmList.map((item, index) => (
-
                 <Card key={index} className="top-item" style={{ width: '24%' }}>
-                    <Card.Img
-                        variant="top"
-                        src={`${item._source.image}`}
-                        className="item-img"
-                    />
+                    <Link to={`details/${item._id}`}>
+                        <Card.Img
+                            variant="top"
+                            src={`${item._source.image}`}
+                            className="item-img"
+                        />
+                    </Link>
                     <Card.Body>
                         <Card.Title>{item._source.title}</Card.Title>
                         <Card.Text>

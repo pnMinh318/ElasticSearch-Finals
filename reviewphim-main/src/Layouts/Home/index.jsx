@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Form, FormControl, InputGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function Home(props) {
+function Home({ handleSearch }) {
+    const [input, setInput] = useState('');
+    const onSearch = () => {
+        handleSearch(input);
+    }
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid style={{ display: 'flex', flexDirection: 'column' }}>
@@ -32,8 +36,11 @@ function Home(props) {
                         placeholder="Tìm kiếm phim"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
+                        onChange={(e) => setInput(e.target.value)}
                     />
-                    <InputGroup.Text id="basic-addon2">Tìm kiếm</InputGroup.Text>
+                    <InputGroup.Text
+                        onClick={onSearch}
+                        id="basic-addon2">Tìm kiếm</InputGroup.Text>
                 </InputGroup>
             </Container>
         </Navbar>
