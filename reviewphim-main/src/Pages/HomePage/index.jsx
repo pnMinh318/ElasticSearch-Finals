@@ -16,8 +16,8 @@ function HomePage(props) {
 
     const getFilmListBySearch = async () => {
         const res = await callApi(`blogs/search?keyword=${'joker'}`, 'GET')
-        console.log(res.data.documents)
-        setFilmList(res.data.documents)
+        console.log(res.data.documents.hits.hits)
+        setFilmList(res.data.documents.hits.hits)
     }
 
     useEffect(() => {
@@ -28,7 +28,7 @@ function HomePage(props) {
         <Container>
             <Home />
             <Slider />
-            {/* <TopContent filmList={filmList} /> */}
+            <TopContent filmList={filmList} />
         </Container>
     );
 }

@@ -10,13 +10,8 @@ import {
 const blogRouter = Router();
 
 blogRouter.route("/search").get(searchBlog);
-blogRouter.route("/").get(getBlogs);
-blogRouter
-  .route("/:id")
-  .get(getBlogs)
-  .post(postBlog)
-  .put(updateBlog)
-  .delete(deleteBlog);
+blogRouter.route("/").get(getBlogs).post(postBlog);
+blogRouter.route("/:id").get(getBlogs).put(updateBlog).delete(deleteBlog);
 // blogRouter.post("/", postBlog);
 // blogRouter.get("/:id", getBlogs);
 // blogRouter.put("/:id", updateBlog);
