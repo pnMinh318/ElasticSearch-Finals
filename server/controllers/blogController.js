@@ -32,6 +32,7 @@ const getBlogs = async (req, res) => {
 
 const postBlog = async (req, res) => {
   const blog = req.body;
+  console.log(blog);
   const bulkResponse = await client.bulk({
     refresh: true,
     operations: [
