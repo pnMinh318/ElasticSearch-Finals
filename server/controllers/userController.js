@@ -11,12 +11,13 @@ const login = async (req, res) => {
         },
       },
     });
-    if (documents.hits.hits.length < 0) {
-      res.status(403).json({ message: "User not Existed" });
+    console.log(documents);
+    if (documents.hits.hits.length < 1) {
+      res.json({ message: "User not Existed" });
     } else {
       const userInfo = documents.hits.hits[0]._source;
       if (userInfo.password === password)
-        res.status(200).json({
+        res.json({
           message: "User login successful",
           user: {
             id: documents.hits.hits[0]._id,
@@ -25,7 +26,7 @@ const login = async (req, res) => {
           },
         });
       else {
-        res.status(401).json({ message: "Wrong password!" });
+        res.json({ message: "Wrong password!" });
       }
     }
   }
