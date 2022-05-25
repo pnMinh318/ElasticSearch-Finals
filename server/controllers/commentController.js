@@ -41,5 +41,26 @@ const postComment = async (req, res) => {
     res.status(200).json({ message: "INSERT COMMENT SUCCESSFUL" });
   }
 };
-
-export { postComment, getCommentByBlogId };
+const updateComment = async (req, res) => {
+  const id = req.params.id;
+  const commentUpdate = req.body;
+  if (id && commentUpdate) {
+    const bulkRes = await client.update({
+      index: "post_comments",
+      id: id,
+      doc: {
+        ...blog,
+      },
+    });
+    bulkRes
+      .then((resolve) => {
+        res.status(200).json({ message: "UPDATE SUCCESSFUL" });
+      })
+      .catch((reject) => {
+        res.status(400).json({ error: reject });
+      });
+  } else {
+    res.status(404).json({ message: "ID or BODY not found" });
+  }
+};
+export { postComment, getCommentByBlogId, updateComment };
