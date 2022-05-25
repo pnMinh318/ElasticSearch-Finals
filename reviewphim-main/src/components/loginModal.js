@@ -34,6 +34,7 @@ function LoginModal() {
       localStorage.setItem("userId", user.id.toString());
       localStorage.setItem("fullname", user.fullname.toString());
       setAlertMessage({ variant: "success", message: res.data.message });
+      setUserLogin(res.data.user);
     } else {
       setAlertMessage({ variant: "danger", message: res.data.message });
     }
@@ -48,12 +49,13 @@ function LoginModal() {
   };
   return !userLogin.fullname ? (
     <>
-      <Button
+      <span
         variant="primary"
         onClick={handleShowModal}
+        style={{ cursor: "pointer", color: "blue ", float: "right" }}
       >
-        Login
-      </Button>
+        Đăng nhập
+      </span>
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -99,10 +101,19 @@ function LoginModal() {
     </>
   ) : (
     <>
-      <div>{userLogin?.fullname}</div>
-      <a style={{ cursor: "pointer" }} onClick={() => handleLogout()}>
-        Logout
-      </a>
+      <div>
+        <span
+          style={{ cursor: "pointer", float: "right" }}
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </span>
+        <span
+          style={{ cursor: "pointer", marginRight: "10px", float: "right" }}
+        >
+          {userLogin?.fullname}
+        </span>
+      </div>
     </>
   );
 }

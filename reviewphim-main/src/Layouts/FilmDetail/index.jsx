@@ -5,37 +5,56 @@ import NavContent from "../NavContent";
 import "./style.css";
 
 function FilmDetail({ filmList }) {
-  // const { _source, content, image, movie, ratingScale } = filmList;
-  const [textCmt, setTextCmt] = useState('');
+  const [textCmt, setTextCmt] = useState("");
   const [listCmt, setListCmt] = useState([]);
 
   const handlePostCmt = async () => {
     let userId = localStorage.getItem("userId");
-    await callApi(`comments/blogs/${filmList._id}`, 'POST', {
+    let fullname = localStorage.getItem("fullname");
+    const res = await callApi(`comments/blogs/${filmList._id}`, "POST", {
       userId: userId,
+      fullname: fullname,
       content: textCmt,
     });
-  }
+    if (res.data.message) {
+      alert("Thêm thành công!");
+    }
+    setTextCmt("");
+    getCmtByBlogId();
+    console.log(res);
+  };
+  const handleDeleteCmt = async (id) => {
+    if (window.confirm("Do you want to delete")) {
+      const res = await callApi(`comments/${id}`, "DELETE");
+      if (res.data.message) {
+        alert("Xóa thành công!");
+      }
+      getCmtByBlogId();
+      console.log(res);
+    }
+  };
 
   const getCmtByBlogId = async () => {
-    const res = await callApi(`comments/blogs/${filmList._id}`, 'GET');
-    // setListCmt(res.data.documents);
-    console.log(res.data);
-  }
+    const res = await callApi(`comments/blogs/${filmList._id}`, "GET");
+    setListCmt(res.data.documents);
+  };
 
   useEffect(() => {
-    getCmtByBlogId();
-  }, [listCmt])
+    if (filmList._id) getCmtByBlogId();
+  }, [filmList]);
   return (
     <>
-
       <div className="film-detail">
         <div className="content">
           <div className="film-title">
             {/* Review phim Eternals (2021) – Du lịch xuyên thời gian không gian sau dịch */}
             {filmList._source.title}
           </div>
-          <img className="film-img" src={filmList._source.image} alt="film-img" />
+          <img
+            className="film-img"
+            src={filmList._source.image}
+            alt="film-img"
+          />
           <div className="film-desc">
             <div className="film-time">
               <span className="film-info">Thời lượng: </span>
@@ -69,7 +88,8 @@ function FilmDetail({ filmList }) {
                     </p> */}
             <img
               src={filmList._source.content[0].sectionContent}
-              className="film-img" alt="img-phim"
+              className="film-img"
+              alt="img-phim"
             />
             <p
               className="film-text"
@@ -101,28 +121,55 @@ function FilmDetail({ filmList }) {
       </div>
       <Form className="mt-5">
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label style={{ fontSize: "24px", fontWeight: "bold" }}>Bình luận</Form.Label>
-          <Form.Control as="textarea" rows={3} onChange={(e) => setTextCmt(e.target.value)} />
+          <Form.Label style={{ fontSize: "24px", fontWeight: "bold" }}>
+            Bình luận
+          </Form.Label>
+          <Form.Control
+            value={textCmt}
+            as="textarea"
+            rows={3}
+            onChange={(e) => setTextCmt(e.target.value)}
+          />
         </Form.Group>
       </Form>
-      <Button variant="primary" onClick={handlePostCmt}>Gửi</Button>{' '}
-      <div className="mt-4" style={{ fontSize: "24px", fontWeight: "bold" }}>Comments</div>
-
-      {/* {listCmt?.map((item, index) => ( */}
-      <Row>
-        <Col className="mb-4">
-          <div className="content-cmt d-flex flex-column">
-            <div className="title-name">
-              Nhat Minh@
+      <Button
+        variant="primary"
+        onClick={handlePostCmt}
+        style={{ marginBottom: "20px" }}
+      >
+        Bình luận
+      </Button>{" "}
+      {listCmt?.map((item, index) => (
+        <Row key={`${index + item}`}>
+          <Col className="mb-4">
+            <div className="content-cmt d-flex flex-column">
+              <div className="title-name">{item._source.fullname}</div>
+              <div className="content-text d-flex justify-content-between ">
+                {item._source.content}
+                <span onClick={() => handleDeleteCmt(item._id)}>
+                  <span style={{ fontSize: "15px", float: "right" }}>
+                    {
+                      new Date(item._source.createdAt)
+                        .toISOString()
+                        .split("T")[0]
+                    }
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "15px",
+                      float: "right",
+                      marginRight: "20px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Xóa
+                  </span>
+                </span>
+              </div>
             </div>
-            <div className="content-text d-flex justify-content-between align-content-center">
-              Đậu xanh rau má ^^!
-              <span style={{ fontSize: "15px" }}>13h ago</span>
-            </div>
-          </div>
-        </Col>
-      </Row>
-      {/* ))} */}
+          </Col>
+        </Row>
+      ))}
     </>
   );
 }
