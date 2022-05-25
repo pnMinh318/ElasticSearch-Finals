@@ -1,7 +1,7 @@
 import { client } from "../elastic.js";
 
 const getCommentByBlogId = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.blogId;
   const documents = await client.search({
     index: "post_comments",
     query: {
