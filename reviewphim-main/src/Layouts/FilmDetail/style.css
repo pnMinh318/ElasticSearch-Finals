@@ -1,5 +1,7 @@
 .film-detail {
     display: flex;
+    border-bottom: 1px solid #333;
+    padding-bottom: 40px;
 }
 .content {
     width: 70%;
@@ -81,5 +83,26 @@
     margin-left: 20px;
     font-weight: bold;
 }
+
+.title-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(70, 70, 231);
+}
+
+.title-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.content-text {
+    font-size: 18px;
+}
+
+.content-cmt {
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
 
 

@@ -14,10 +14,11 @@ function LoginModal() {
   const [userLogin, setUserLogin] = useState({});
 
   useEffect(() => {
-    let x = localStorage.getItem("user");
+    let x = localStorage.getItem("userId");
     let y = localStorage.getItem("fullname");
     setUserLogin({ user: x, fullname: y });
-  });
+  }, []);
+
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
   const handleLogin = async (e) => {
@@ -30,7 +31,7 @@ function LoginModal() {
     });
     if (res.data?.user) {
       const user = res.data.user;
-      localStorage.setItem("user", user.id.toString());
+      localStorage.setItem("userId", user.id.toString());
       localStorage.setItem("fullname", user.fullname.toString());
       setAlertMessage({ variant: "success", message: res.data.message });
     } else {
@@ -43,6 +44,7 @@ function LoginModal() {
   const handleLogout = async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("fullname");
+    setUserLogin({});
   };
   return !userLogin.fullname ? (
     <>
