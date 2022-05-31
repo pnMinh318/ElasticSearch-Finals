@@ -14,10 +14,11 @@ function LoginModal() {
   const [userLogin, setUserLogin] = useState({});
 
   useEffect(() => {
-    let x = localStorage.getItem("user");
+    let x = localStorage.getItem("userId");
     let y = localStorage.getItem("fullname");
     setUserLogin({ user: x, fullname: y });
-  });
+  }, []);
+
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
   const handleLogin = async (e) => {
@@ -30,9 +31,10 @@ function LoginModal() {
     });
     if (res.data?.user) {
       const user = res.data.user;
-      localStorage.setItem("user", user.id.toString());
+      localStorage.setItem("userId", user.id.toString());
       localStorage.setItem("fullname", user.fullname.toString());
       setAlertMessage({ variant: "success", message: res.data.message });
+      setUserLogin(res.data.user);
     } else {
       setAlertMessage({ variant: "danger", message: res.data.message });
     }
@@ -43,15 +45,17 @@ function LoginModal() {
   const handleLogout = async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("fullname");
+    setUserLogin({});
   };
   return !userLogin.fullname ? (
     <>
-      <Button
+      <span
         variant="primary"
         onClick={handleShowModal}
+        style={{ cursor: "pointer", color: "blue ", float: "right" }}
       >
-        Login
-      </Button>
+        Đăng nhập
+      </span>
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -97,10 +101,19 @@ function LoginModal() {
     </>
   ) : (
     <>
-      <div>{userLogin?.fullname}</div>
-      <a style={{ cursor: "pointer" }} onClick={() => handleLogout()}>
-        Logout
-      </a>
+      <div>
+        <span
+          style={{ cursor: "pointer", float: "right" }}
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </span>
+        <span
+          style={{ cursor: "pointer", marginRight: "10px", float: "right" }}
+        >
+          {userLogin?.fullname}
+        </span>
+      </div>
     </>
   );
 }
