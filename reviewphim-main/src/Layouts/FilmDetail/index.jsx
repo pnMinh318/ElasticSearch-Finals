@@ -3,28 +3,51 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import callApi from "../../api/callApi";
 import NavContent from "../NavContent";
 import "./style.css";
+import Comment from "../../components/comments";
+import CommentsForm from "../../components/commentsForm";
 
 function FilmDetail({ filmList }) {
-  const [textCmt, setTextCmt] = useState("");
   const [listCmt, setListCmt] = useState([]);
 
-  const handlePostCmt = async () => {
-    let userId = localStorage.getItem("userId");
-    let fullname = localStorage.getItem("fullname");
-    const res = await callApi(`comments/blogs/${filmList._id}`, "POST", {
-      userId: userId,
-      fullname: fullname,
-      content: textCmt,
-    });
-    if (res.data.message) {
-      alert("Thêm thành công!");
+  let userId = localStorage.getItem("userId");
+  let fullname = localStorage.getItem("fullname");
+  const handlePostCmt = async (content) => {
+    if (userId && fullname) {
+      const newCom = {
+        userId: userId,
+        fullname: fullname,
+        content: content,
+      };
+      // debugger;
+      const res = await callApi(`comments/blogs/${filmList._id}`, "POST", {
+        ...newCom,
+      });
+      if (res.data.message) {
+        alert("Thêm thành công!");
+      }
+    } else {
+      alert("Cần đăng nhập để bình luận");
     }
-    setTextCmt("");
     getCmtByBlogId();
-    console.log(res);
+  };
+  const handleEditCmt = async (content, cmtId) => {
+    if (userId && fullname) {
+      const updateCom = {
+        content: content,
+      };
+      const res = await callApi(`comments/${cmtId}`, "PUT", {
+        ...updateCom,
+      });
+      if (res.data.message) {
+        alert("Sửa thành công!");
+      }
+    } else {
+      alert("Cần đăng nhập để bình luận");
+    }
+    getCmtByBlogId();
   };
   const handleDeleteCmt = async (id) => {
-    if (window.confirm("Do you want to delete")) {
+    if (window.confirm("Bạn có muốn xóa?")) {
       const res = await callApi(`comments/${id}`, "DELETE");
       if (res.data.message) {
         alert("Xóa thành công!");
@@ -119,56 +142,15 @@ function FilmDetail({ filmList }) {
         </div>
         <NavContent />
       </div>
-      <Form className="mt-5">
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label style={{ fontSize: "24px", fontWeight: "bold" }}>
-            Bình luận
-          </Form.Label>
-          <Form.Control
-            value={textCmt}
-            as="textarea"
-            rows={3}
-            onChange={(e) => setTextCmt(e.target.value)}
-          />
-        </Form.Group>
-      </Form>
-      <Button
-        variant="primary"
-        onClick={handlePostCmt}
-        style={{ marginBottom: "20px" }}
-      >
-        Bình luận
-      </Button>{" "}
-      {listCmt?.map((item, index) => (
-        <Row key={`${index + item}`}>
-          <Col className="mb-4">
-            <div className="content-cmt d-flex flex-column">
-              <div className="title-name">{item._source.fullname}</div>
-              <div className="content-text d-flex justify-content-between ">
-                {item._source.content}
-                <span onClick={() => handleDeleteCmt(item._id)}>
-                  <span style={{ fontSize: "15px", float: "right" }}>
-                    {
-                      new Date(item._source.createdAt)
-                        .toISOString()
-                        .split("T")[0]
-                    }
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "15px",
-                      float: "right",
-                      marginRight: "20px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Xóa
-                  </span>
-                </span>
-              </div>
-            </div>
-          </Col>
-        </Row>
+      <CommentsForm handlePostCmt={handlePostCmt}></CommentsForm>
+      {listCmt?.reverse().map((item, index) => (
+        <Comment
+          comment={item}
+          key={item._id + index}
+          handleDeleteCmt={handleDeleteCmt}
+          handleEditCmt={handleEditCmt}
+          currentUserId={userId}
+        ></Comment>
       ))}
     </>
   );

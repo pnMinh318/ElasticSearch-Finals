@@ -46,11 +46,11 @@ const updateComment = async (req, res) => {
   const id = req.params.id;
   const commentUpdate = req.body;
   if (id && commentUpdate) {
-    const bulkRes = await client.update({
+    const bulkRes = client.update({
       index: "post_comments",
       id: id,
       doc: {
-        ...blog,
+        ...commentUpdate,
       },
     });
     bulkRes
